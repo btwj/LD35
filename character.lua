@@ -121,7 +121,7 @@ function Character:draw(highlighted)
 
 	if self.marker then
 		love.graphics.draw(c.IMG_BUBBLE, self.x, y - c.IMG_BUBBLE:getHeight() - 48, 0, 2, 2, c.IMG_BUBBLE:getWidth()/2)
-		love.graphics.draw(c.IMG_BUBBLE, self.x, y - c.IMG_BUBBLE:getHeight() - 48 + 16, 0, 2, 2, c.IMG_BUBBLE:getWidth()/2)
+		love.graphics.draw(self.markerImage, self.x, y - c.IMG_BUBBLE:getHeight() - 48 + 16, 0, 2, 2, self.markerImage:getWidth()/2)
 	end
 
 	love.graphics.setColor(255, 255, 255, 255)
