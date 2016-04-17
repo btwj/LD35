@@ -169,8 +169,9 @@ end
 
 function Level:mousepressed(mx, my, button)
 	if self.data[self.level].info.markers and mx >= 176 - 64 - 8 and mx <= 176 - 8 and my >= 280 and my <= 280 + 64 and self.curMarker < self.data[self.level].info.markers then
-		local curCharacter = self.stage.characters[self.stage.highlighted.id]
-		if self.stage.highlighted ~= nil and not curCharacter.marker then
+		
+		if self.stage.highlighted ~= nil and not self.stage.characters[self.stage.highlighted.id].marker then
+			local curCharacter = self.stage.characters[self.stage.highlighted.id]
 			curCharacter:addMarker(self.curMarkerId)
 			self.marked[curCharacter.id] = self.curMarkerId
 			self.curMarker = self.curMarker + 1

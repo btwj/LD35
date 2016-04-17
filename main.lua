@@ -11,9 +11,10 @@ cutscenes = {
 	"You have been transferred to our newly formed division: The Reptilian Elimination Squad.",
 	"Stop questioning the story, I was desperate."},
 	{"Your goal is to find and eliminate shapeshifters in each room.",
-	 "These reptiles will shapeshift whenever the lights are toggled off and on.",
-	 "On further research, we have found that these reptiles always shapeshift in specific, repeated patterns."},
-	{"Hurt any of our finest people, you'll be punished. Three strikes and you're out.", "Good luck, soldier."}
+	 "These reptiles will shapeshift into other people whenever the lights are toggled off and on.",
+	 "On further research, we have found that these reptiles always shapeshift in specific, repeated patterns.",
+	 "Turn the lights on and off to find the shapeshifters."},
+	{"Hurt any of our politicians, you'll be punished. Three strikes and you're out.", "Good luck, soldier."}
 }
 levelNo = 1
 bgImg = love.graphics.newImage("img/ui/background.png")
@@ -40,7 +41,7 @@ end
 function nextLevel()
 	levelNo = levelNo + 1
 	if levelNo > #level.data then
-		gameWin = true
+		gameWon = true
 		paused = true
 		return
 	end
