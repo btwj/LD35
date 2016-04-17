@@ -17,9 +17,9 @@ cutscenes = {
 }
 levelNo = 1
 bgImg = love.graphics.newImage("img/ui/background.png")
-gameOverImg = love.graphics.newImage("img/ui/gameOver.png")
+gameOverImg = love.graphics.newImage("img/ui/gameover.png")
 gameOverImg:setFilter("nearest", "nearest")
-gameWinImg = love.graphics.newImage("img/ui/gameWin.png")
+gameWinImg = love.graphics.newImage("img/ui/gamewin.png")
 gameWinImg:setFilter("nearest", "nearest")
 bgImg:setFilter("nearest", "nearest")
 font = love.graphics.newFont("fonts/Munro.ttf", 20)
@@ -97,8 +97,6 @@ end
 function love.keypressed(key, scancode, isrepeat)
 	if state == "level" and key == "space" and level.state == "idle" and not paused then
 		level:nextCycle()
-	elseif state == "level" and key == "x" then
-		nextLevel()
 	end
 end
 
