@@ -44,9 +44,8 @@ end
 function Level:load(level)
 	self.cycle = 0
 	self.level = level
-	self.stage = nil
-	self.stage = Stage:new(self:getPeopleTable())
-	self.stage:load()
+	self.stage = Stage:new()
+	self.stage:load(self:getPeopleTable())
 end
 
 function Level:draw()
@@ -126,8 +125,7 @@ function Level:nextCycle()
 	self.state = "blackout"
 	c.SFX_SWITCH:play()
 	self.cycle = self.cycle + 1
-	self.stage = Stage:new(self:getPeopleTable())
-	self.stage:load()
+	self.stage:load(self:getPeopleTable())
 	for i, character in ipairs(self.stage.characters) do
 		if self.marked[character.id] then
 			character:addMarker(self.marked[character.id])

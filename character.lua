@@ -91,8 +91,7 @@ end
 
 function Character:transform()
 	self.costume = "lizardperson"
-	self.image = love.graphics.newImage("img/characters/lizardperson.png")
-	self.image:setFilter("nearest", "nearest")
+	self.image = c.COSTUME_IMAGES[self.costume]
 	self.cloud:emit(100)
 	self.fade = true
 end

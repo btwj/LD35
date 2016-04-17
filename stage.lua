@@ -2,9 +2,8 @@ require "character"
 
 Stage = {}
 
-function Stage:new(people)
+function Stage:new()
 	local obj = {
-		people = people,
 		highlighted = nil,
 		characters = {}
 	}
@@ -12,9 +11,10 @@ function Stage:new(people)
 	return setmetatable(obj, self)
 end
 
-function Stage:load()
+function Stage:load(people)
 	love.graphics.setBackgroundColor(255, 255, 255)
-	for i, person in ipairs(self.people) do
+	self.characters = {}
+	for i, person in ipairs(people) do
 		table.insert(self.characters, Character:new(person, i))
 	end
 end
