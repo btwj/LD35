@@ -1,25 +1,9 @@
 Character = {}
 
-QUOTES = {
-	secretagent = {"I shall be neither seen, nor heard.", "NO TOUCHING!", "These are my awards, mother. From army.", "The seal is for marksmanship.", "The gorilla is for sand racing."},
-	davidcameron = {"Me? And a pig? Ha.", "Taxes? Those are optional right?"},
-	billclinton = {"It's the reptilians, stupid.", "I did not have reptilian relations.", "For reptiles, for a change."},
-	hillaryclinton = {"I'm with... me?", "Ha. Hahaha. Reptile? Pssh."},
-	barackobama = {"Change we need.", "Yes sss we can.", "I was not born on another planet."},
-	secretagent2 = {"Pew pew.", "I've crushed a squirrel once. Fear me.", "Don't test me.", "I could shoot you now.", "They're putting me in something called Hero Squad."},
-	queenelizabeth = {"Cup of tea please.", "Some cookies, dear."},
-	queensguard = {"Make way for the Queen's guard!", "..."},
-	lizardperson = {"Hss! HSSSS!"}
-}
-
 function Character:new(costume, id)
 	padding = 20
 	length = 0.8
-	local image = love.graphics.newImage("img/characters/" .. costume .. ".png")
-	local markerBubble = love.graphics.newImage("img/ui/bubble.png")
-	image:setFilter("nearest", "nearest")
-	markerBubble:setFilter("nearest", "nearest")
-	local psystem = love.graphics.newParticleSystem(love.graphics.newImage("img/ui/particle.png"))
+	local psystem = love.graphics.newParticleSystem(c.IMG_PARTICLE)
 	psystem:setParticleLifetime(0.2, 0.5)
 	psystem:setLinearAcceleration(-20, -5, 20, 200)
 	psystem:setColors(255, 255, 255, 255, 255, 255, 255, 0)
@@ -29,12 +13,11 @@ function Character:new(costume, id)
 		x = love.math.random(padding, love.graphics.getWidth() - padding), 
 		state = "idle",
 		dir = 1,
-		image = image,
+		image = c.COSTUME_IMAGES[costume],
 		costume = costume,
 		marker = false,
 		markerId = -1,
 		markerImage = nil,
-		markerBubble = markerBubble,
 		dead = false,
 		cloud = psystem,
 		fade = false,
@@ -59,7 +42,7 @@ function Character:update(dt)
 	end
 
 	if love.math.random() < 0.001 and not self.speaking then
-		self.curQuote = QUOTES[self.costume][love.math.random(#QUOTES[self.costume])]
+		self.curQuote = c.QUOTES[self.costume][love.math.random(#c.QUOTES[self.costume])]
 		self.curQuoteWidth = font:getWidth(self.curQuote)
 		self.speaking = true
 	end
@@ -138,8 +121,8 @@ function Character:draw(highlighted)
 	
 
 	if self.marker then
-		love.graphics.draw(self.markerBubble, self.x, y - self.markerBubble:getHeight() - 48, 0, 2, 2, self.markerBubble:getWidth()/2)
-		love.graphics.draw(self.markerImage, self.x, y - self.markerBubble:getHeight() - 48 + 16, 0, 2, 2, self.markerImage:getWidth()/2)
+		love.graphics.draw(c.IMG_BUBBLE, self.x, y - c.IMG_BUBBLE:getHeight() - 48, 0, 2, 2, c.IMG_BUBBLE:getWidth()/2)
+		love.graphics.draw(c.IMG_BUBBLE, self.x, y - c.IMG_BUBBLE:getHeight() - 48 + 16, 0, 2, 2, c.IMG_BUBBLE:getWidth()/2)
 	end
 
 	love.graphics.setColor(255, 255, 255, 255)

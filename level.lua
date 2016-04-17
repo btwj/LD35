@@ -3,24 +3,6 @@ require "stage"
 Level = {}
 
 function Level:new()
-	sound = love.audio.newSource("sounds/switch.wav", "static")
-	transform = love.audio.newSource("sounds/transform.wav", "static")
-	strike = love.audio.newSource("sounds/hit.wav", "static")
-	sound:setVolume(0.2)
-	transform:setVolume(0.1)
-	strike:setVolume(0.2)
-	btnImg = love.graphics.newImage("img/ui/btn_capture.png")
-	btnImgHover = love.graphics.newImage("img/ui/btn_capture_hover.png")
-	btnMarker = love.graphics.newImage("img/ui/btn_place_marker.png")
-	btnMarkerHover = love.graphics.newImage("img/ui/btn_place_marker_hover.png")
-	btnVis = love.graphics.newImage("img/ui/btn_vis.png")
-	btnVisToggle = love.graphics.newImage("img/ui/btn_vis_toggle.png")
-	btnImg:setFilter("nearest", "nearest")
-	btnImgHover:setFilter("nearest", "nearest")
-	btnMarker:setFilter("nearest", "nearest")
-	btnMarkerHover:setFilter("nearest", "nearest")
-	btnVis:setFilter("nearest", "nearest")
-	btnVisToggle:setFilter("nearest", "nearest")
 	vis = false
 	local obj = {
 		stage = {},
@@ -62,6 +44,7 @@ end
 function Level:load(level)
 	self.cycle = 0
 	self.level = level
+	self.stage = nil
 	self.stage = Stage:new(self:getPeopleTable())
 	self.stage:load()
 end
@@ -81,15 +64,15 @@ function Level:draw()
 		if self.stage.highlighted ~= nil then
 			local mx, my = love.mouse.getPosition()
 			if mx >= 176 and mx <= 176 + 128 and my >= 280 and my <= 280 + 64 then
-				love.graphics.draw(btnImgHover, 176, 280, 0, 2, 2)
+				love.graphics.draw(c.BTN_CAPTURE_HOVER, 176, 280, 0, 2, 2)
 			else 
-				love.graphics.draw(btnImg, 176, 280, 0, 2, 2)
+				love.graphics.draw(c.BTN_CAPTURE, 176, 280, 0, 2, 2)
 			end
 			if self.data[self.level].info.markers then
 				if mx >= 176 - 64 - 8 and mx <= 176 - 8 and my >= 280 and my <= 280 + 64 then
-					love.graphics.draw(btnMarkerHover, 176 - 64 - 8, 280, 0, 2, 2)
+					love.graphics.draw(c.BTN_MARKER_HOVER, 176 - 64 - 8, 280, 0, 2, 2)
 				else
-					love.graphics.draw(btnMarker, 176 - 64 - 8, 280, 0, 2, 2)
+					love.graphics.draw(c.BTN_MARKER, 176 - 64 - 8, 280, 0, 2, 2)
 				end
 			end
 		end
@@ -99,9 +82,9 @@ function Level:draw()
 		love.graphics.setColor(255, 255, 255)
 	end
 	if not vis then
-		love.graphics.draw(btnVis, love.graphics.getWidth() - 64 - 16, 16, 0, 2, 2)
+		love.graphics.draw(c.BTN_VIS, love.graphics.getWidth() - 64 - 16, 16, 0, 2, 2)
 	else
-		love.graphics.draw(btnVisToggle, love.graphics.getWidth() - 64 - 16, 16, 0, 2, 2)
+		love.graphics.draw(c.BTN_VIS_TOGGLE, love.graphics.getWidth() - 64 - 16, 16, 0, 2, 2)
 	end
 	if self.state == "fadeout" then
 		love.graphics.setColor(0, 0, 0, self.fadeOutTimer * 255)
@@ -141,7 +124,7 @@ end
 
 function Level:nextCycle()
 	self.state = "blackout"
-	sound:play()
+	c.SFX_SWITCH:play()
 	self.cycle = self.cycle + 1
 	self.stage = Stage:new(self:getPeopleTable())
 	self.stage:load()
@@ -199,14 +182,14 @@ function Level:mousereleased(mx, my, button)
 			if #self.data[self.level].peopleData[stage.highlighted.id] > 1 then
 				table.insert(self.captured, stage.highlighted.id)
 				stage.highlighted:transform()
-				transform:play()
+				c.SFX_TRANSFORM:play()
 				stage.highlighted = nil
 				if #self.captured == self.data[self.level].info.shapeshifters then
 					self.state = "fadeout"
 				end
 			else
 				strikes = strikes + 1
-				strike:play()
+				c.SFX_STRIKE:play()
 			end
 		end
 	end

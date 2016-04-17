@@ -1,6 +1,7 @@
 require "character"
 require "level"
 require "cutscene"
+require "const"
 
 state = ""
 strikes = 0
@@ -78,6 +79,7 @@ function love.draw()
 	elseif gameWon then
 		love.graphics.draw(gameWinImg, 0, 0, 0, 2, 2)
 	end
+	--love.graphics.print('Memory actually used (in kB): ' .. collectgarbage('count'), 10,10)
 end
 
 function love.update(dt)
